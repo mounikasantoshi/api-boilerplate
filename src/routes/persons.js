@@ -1,4 +1,4 @@
-import express from "express";
+import express, { response } from "express";
 import Persons from "../models/Persons";
 
 const router = express.Router();
@@ -33,6 +33,57 @@ router.post("/", async (req, res) => {
     });
     const person1 = await newPerson.save();
     res.json(person1);
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
+
+//DELETE
+
+// router.delete("/:personsId", async (req, res) => {
+//   try {
+//     const removedPerson = await Persons.remove({ _id: req.params.personsId });
+//     res.json(removedPerson);
+//   } catch (err) {
+//     res.json({ message: err });
+//   }
+// });
+
+//Delete by id
+
+router.delete("/:personsid", (req, res) => {
+  Persons.findByIdAndDelete(req.params.personsid)
+    .then(() => res.json("user was deleted"))
+    .catch((err) => res.status(400).json("error" + err));
+});
+
+//update
+
+// router.patch("/:id", (req,res)=>{
+//     try{
+//         const updatePerson=await Persons.updateOne({_id:req.params.id},{ $set: {firstName:req.body.firstName,lastName:req.body.lastName,age:req.body.age,gender:req.body.gender
+//         }}
+//         );
+//     res.json(updatePerson);
+// }catch(err){
+//         res.json({message:err});
+//     }
+// });
+
+router.patch("/:personId", async (req, res) => {
+  try {
+    const updatePerson = await Persons.updateOne(
+      { _id: req.params.personId },
+      {
+        $set: {
+          firstName: req.body.firstName,
+          lastName: req.body.lastName,
+          age: req.body.age,
+          gender: req.body.gender,
+        },
+      }
+    );
+    res.json(updatePerson);
   } catch (err) {
     res.json({ message: err });
   }
