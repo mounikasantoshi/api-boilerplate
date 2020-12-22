@@ -59,17 +59,6 @@ router.delete("/:personsid", (req, res) => {
 
 //update
 
-// router.patch("/:id", (req,res)=>{
-//     try{
-//         const updatePerson=await Persons.updateOne({_id:req.params.id},{ $set: {firstName:req.body.firstName,lastName:req.body.lastName,age:req.body.age,gender:req.body.gender
-//         }}
-//         );
-//     res.json(updatePerson);
-// }catch(err){
-//         res.json({message:err});
-//     }
-// });
-
 router.patch("/:personId", async (req, res) => {
   try {
     const updatePerson = await Persons.updateOne(

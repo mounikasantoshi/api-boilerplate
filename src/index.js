@@ -25,7 +25,7 @@ mongoose.connect(
 
 //router
 
-app.use("/Persons", persons);
+app.use("/persons", persons);
 
 app.get("/", (req, res) => res.json({ name: "mounika" }));
 
